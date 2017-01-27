@@ -1,0 +1,13 @@
+LEX_ML = ocamllex
+YACC_ML = ocamlyacc
+OCAMLC = ocamlc
+
+
+all: src/lexer.mll src/parser.mly src/main.ml src/ast.ml
+	$(OCAMLC) -c src/ast.ml
+	$(LEX_ML) -o lexer.ml src/lexer.mll
+	$(YACC_ML) -b parser_yacc src/parser.mly
+	$(OCAMLC) -c parser_yacc.mli
+	$(OCAMLC) -c lexer.ml
+	$(OCAMLC) -c parser_yacc.ml
+	$(OCAMLC) lexer.cmo parser_yacc.cmo src/main.ml
