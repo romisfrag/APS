@@ -13,14 +13,17 @@ getTypeVar([_|TL],VAR,R) :- getTypeVar(TL,VAR,R).
 %--------------PROG--------------------------
 typeProg(prog(PROG),void) :- typeCmds([],PROG,void).
 
+
 % ------------- EXPRESSION ----------------------------------------
 
 /* typeExp(G,E,TYPE) :- env(G) */
+
 
 % constante:
 typeExp(_,true,bool).
 typeExp(_,false,bool).
 typeExp(_,V,int) :- integer(V).
+
 
 
 % expression boolean
@@ -39,7 +42,8 @@ typeExp(G,sub(E1,E2), int) :- typeExp(G,E1,int) , typeExp(G,E2,int).
 typeExp(G,div(E1,E2), int) :- typeExp(G,E1,int) , typeExp(G,E2,int).
 
 %variables
-typeExp(G,IDENT,TYPE) :- getTypeVar(G,IDENT,TYPE).
+typeExp(G,IDENT,int) :- getTypeVar(G,IDENT,int).
+typeExp(G,IDENT,bool) :- getTypeVar(G,IDENT,bool).
 
 %cas de base
 typeExp(_,_,_) :- false.
@@ -61,20 +65,20 @@ typeStat(_,_,_) :- false.
 
 % ------------- COMMANDE ------------------------------------------
 
+typeCmds(_,[],void).
 
 typeCmds(G,[STAT],void) :- typeStat(G,STAT,void).
-typeCmds(G,[DEC|CMDS],void) :- typeDec(G,DEC,void), typeCmds(G,CMDS,void).
+typeCmds(G,[var(IDENT,TYPE)|CMDS],void) :- typeCmds([(IDENT,TYPE)|G],CMDS,void).
+
+
+
+typeCmds(G,[const(IDENT,TYPE,EXPR)|CMDS],void) :- typeExpr(G,EXPR,TYPE),
+					    typeCmds([(IDENT,TYPE)|G],CMDS,void).
 typeCmds(G,[STAT|CMDS],void) :- typeStat(G,STAT,void), typeCmds(G,CMDS,void).
 
 typeCmds(_,_,_) :- false.
 
-% ------------- DECLARATION ---------------------------------------
-
-typeDec(G,var(IDENT,TYPE),void) :- 
-
-
-
-% ------------- COMMANDE ------------------------------------------
+ 
 
 
 
