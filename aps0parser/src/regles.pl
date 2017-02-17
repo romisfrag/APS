@@ -2,7 +2,7 @@
 
 %list for functions c'est la fonction g(x) du cours
 
-getTypeVar([],_,bottom).
+
 getTypeVar([(VAR,TYPE)|_],VAR,TYPE).
 getTypeVar([_|TL],VAR,R) :- getTypeVar(TL,VAR,R).
 
@@ -42,8 +42,7 @@ typeExp(G,sub(E1,E2), int) :- typeExp(G,E1,int) , typeExp(G,E2,int).
 typeExp(G,div(E1,E2), int) :- typeExp(G,E1,int) , typeExp(G,E2,int).
 
 %variables
-typeExp(G,IDENT,int) :- getTypeVar(G,IDENT,int).
-typeExp(G,IDENT,bool) :- getTypeVar(G,IDENT,bool).
+typeExp(G,IDENT,TYPE) :- getTypeVar(G,IDENT,TYPE).
 
 %cas de base
 typeExp(_,_,_) :- false.
