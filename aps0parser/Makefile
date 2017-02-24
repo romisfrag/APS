@@ -11,3 +11,7 @@ all: src/lexer.mll src/parser.mly src/main.ml src/ast.ml
 	$(OCAMLC) -o lexer -c lexer.ml
 	$(OCAMLC) -o parser_yacc -c parser_yacc.ml
 	$(OCAMLC) -o exec lexer.cmo parser_yacc.cmo src/main.ml
+
+
+clean:
+	rm exec *.cmi *.cmo src/*.cmo src/*.cmi

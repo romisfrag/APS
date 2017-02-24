@@ -3,7 +3,7 @@ open Ast
 
 let rec printProgram p =
   match p with
-  | Prog x -> "prog([" ^ printcMDS x ^ "])"
+  | Prog x -> "prog([" ^ printcMDS x ^ "])."
 and printcMDS c =
   match c with 
   | Statement s -> printsTAT s
@@ -59,13 +59,11 @@ let rec fulfill_string ic s: string =
 	    s
 
 			
-let file_to_string =
-  let ic = open_in file in
-  fulfill_string ic ""
+
     
 
     
-    (* let line = input_line ic in *)
+  (*   let line = input_line ic in *)
   (*   print_endline line; *)
   (*   flush stdout; *)
   (*   close_in ic *)
@@ -76,17 +74,24 @@ let file_to_string =
 		
 
 let _ =
-  let s = file_to_string in
-  try
-    let lexbuf = Lexing.from_string s in
-    let result = Parser_yacc.start Lexer.token lexbuf  in
-    Printf.printf "%s" (printProgram result)
-  with Lexer.Eof ->
-    Printf.printf "mdr"
-    (* while true do  *)
-    (*   let result = Parser_yacc.start Lexer.token lexbuf in       *)
-    (*   print_newline(); *)
-    (*   Printf.printf "%s xd" (printProgram result); *)
-    (*   print_newline(); *)
-    (*   flush stdout *)
-		  (*done *)
+  if Array.length Sys.argv = 3
+  then 
+    (let ic = open_in Sys.argv.(1) in
+     let s = fulfill_string ic "" in
+    try
+      let lexbuf = Lexing.from_string s in
+      let result = Parser_yacc.start Lexer.token lexbuf  in
+      let print_prog_res = printProgram result in
+      let oc = open_out Sys.argv.(2) in
+      Printf.fprintf oc "%s" print_prog_res;
+      Printf.printf "%s" print_prog_res
+	       with Lexer.Eof ->
+		 Printf.printf "mdr")
+			       (* while true do  *)
+			       (*   let result = Parser_yacc.start Lexer.token lexbuf in       *)
+			       (*   print_newline(); *)
+			       (*   Printf.printf "%s xd" (printProgram result); *)
+			       (*   print_newline(); *)
+			       (*   flush stdout *)
+			       (*done *)
+  else failwith "i need 1 arg : input file 2 arg : output file"

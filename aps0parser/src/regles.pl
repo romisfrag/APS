@@ -11,7 +11,7 @@ getTypeVar([_|TL],VAR,R) :- getTypeVar(TL,VAR,R).
 
 
 %--------------PROG--------------------------
-typeProg(prog(PROG),void) :- typeCmds([],PROG,void).
+%end of the file now
 
 
 % ------------- EXPRESSION ----------------------------------------
@@ -77,6 +77,29 @@ typeCmds(G,[STAT|CMDS],void) :- typeStat(G,STAT,void), typeCmds(G,CMDS,void).
 
 typeCmds(_,_,_) :- false.
 
+
+
+
+
+typeProg(prog(PROG),true) :- typeCmds([],PROG,void).
+typeProg(_,false).
+
+typeFile(F) :-
+    open(F,read,IC),
+    read(IC,T),
+    typeProg(T,R),
+    print(R),
+    nl.
+
+
+main([Args|_]):-
+    %current_prolog_flags(argv[Args]),
+    %atom_codes(Args,F),
+    typeFile(Args),
+    halt.
+	
+    
+	 
  
 
 
