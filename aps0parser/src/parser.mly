@@ -9,6 +9,7 @@
 %token EOF
 %token SEMICOLON
 %token LBRACKET RBRACKET
+%token RROUNDBRACKET LROUNDBRACKET
 %start start
 %type <Ast.pROG> start
 
@@ -44,8 +45,8 @@ expr:
 | FALSE			{Ast.False}
 | NUM			{Ast.Num $1}
 | IDENT 		{Ast.Id (Ast.Ident $1)}
-| unop			{Ast.Unop $1}
-| binop 		{Ast.Binop $1}
+| LROUNDBRACKET unop RROUNDBRACKET			{Ast.Unop $2}
+| LROUNDBRACKET binop RROUNDBRACKET 		{Ast.Binop $2}
 ;
 unop:
 | NOT expr              { Ast.Not $2 }

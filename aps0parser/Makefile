@@ -14,4 +14,4 @@ all: src/lexer.mll src/parser.mly src/main.ml src/ast.ml
 
 
 clean:
-	rm exec *.cmi *.cmo src/*.cmo src/*.cmi
+	rm exec *.cmi *.cmo src/*.cmo src/*.cmi parser_yacc.ml parser_yacc.mli lexer.ml

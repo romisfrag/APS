@@ -1,0 +1,1 @@
+prog([var(x,int),var(y,bool),set(x,10),set(x,add(x,x)),if(eq(y,20),[set(y,true)],[set(y,false)])]).

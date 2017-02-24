@@ -17,14 +17,16 @@ rule token = parse
 | "false"	{FALSE}
 | "bool"	{BOOL}
 | "int" 	{INT}
-| "set"		{SET}
-| "if" 		{IF}
-| "while"	{WHILE}
-| "const" 	{CONST}
-| "var" 	{VAR}
+| "SET"		{SET}
+| "IF" 		{IF}
+| "WHILE"	{WHILE}
+| "CONST" 	{CONST}
+| "VAR" 	{VAR}
 | ';'		{SEMICOLON}
 | '['		{LBRACKET}
 | ']'		{RBRACKET}
+| '('  		{LROUNDBRACKET}
+| ')'		{RROUNDBRACKET}
 | '-'?['0'-'9']+ as n {NUM(int_of_string n)}
 | ['a'-'z''A'-'Z']['a'-'z''A'-'Z''0'-'9']* as s {IDENT s}
 | eof 		{EOF}
