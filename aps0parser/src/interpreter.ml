@@ -22,6 +22,40 @@ type memoire = (addr*value) list
 
 type return = (value * environment * memoire)
 
+
+
+(* ----------------------- printing functions ----------------------------- *)
+
+
+let ident_to_string (id : iDENT) =
+  match id with
+  | Ident i -> i
+
+let addr_to_string (a : addr) =
+  string_of_int a
+
+let valeur_to_string (v : value) =
+  match v with 
+  | Int i -> string_of_int i 
+  | Bool b -> string_of_bool b
+  | Null -> "Null"
+		
+let element_to_string (elem : element) =
+  match elem with
+  | Addr a -> "@" ^ addr_to_string a
+  | Valeur v -> "#" ^ valeur_to_string v
+    
+			 
+let rec env_to_string (env : environment) =
+  match env with
+  | [] -> ""
+  | (id,e) :: tl  -> (ident_to_string id) ^ " : " ^ (element_to_string e) ^ "\n" ^ (env_to_string tl)
+
+let rec mem_to_string (mem : memoire) =
+  match mem with
+  | [] -> ""
+  | (a,v) :: tl -> "@" ^ (addr_to_string a) ^ " : #" ^ (valeur_to_string v) ^ "\n" ^ (mem_to_string tl)
+		
                         
 (* ------------------------- memoire --------------------- *)			  
 
@@ -34,12 +68,12 @@ let alloc_mem mem  =
   ((genere_addr cpt_memoire),Null)::mem
   
 
-let rec modif_value_mem mem addr value =
+let rec modif_value_mem mem (addr : addr) value =
   match mem with
   | (a,v)::t ->
      if addr = a then (a,value)::t
-     else modif_value_mem t addr value
-  | [] -> raise (Error "l'adresse n'existe pas")
+     else (a,v) :: modif_value_mem t addr value
+  | [] -> (* let () = Printf.printf "on chercher %d et on a %s\n" addr (mem_to_string mem) in *) raise (Error "l'adresse n'existe pas")
 
 let rec get_value_mem mem addr =
   match mem with
@@ -177,24 +211,27 @@ and eval_stat ins (env : environment) (mem : memoire) : return =
 		      
 (* -------------------------------------- eval declaration -------------------------------- *)
 and eval_dec ins (env : environment) (mem : memoire) : return =
+  (*   let () = Printf.printf "eval dec\n" in *)
   match ins with
   | Variable (id,_) -> let new_mem = alloc_mem mem in
 		       (match new_mem with
-			| (a,_) :: suite -> (Null,((id,(Addr a))::env),new_mem)
+			| (a,_) :: suite -> (* let () = Printf.printf "memIntermediaire : \n %s" (mem_to_string new_mem) in *)
+					    (Null,((id,(Addr a))::env),new_mem)
 			| _ -> failwith "eval_dec error supposed not to append, it might be because you change alloc_mem")
   | Const (id,e1,_) -> (match eval_expr e1 env mem with
 			| (v,_,_) -> (Null,(id,(Valeur v))::env,mem))
 
 
 (* ---------------------------------- suite de commandes ---------------------- *)
-(* TODO :: dire qu'il y a une faute au prof pour la regle d'évaluations suite de cmds avec statement *)
 and eval_cmds ins (env : environment) (mem : memoire) : return =
+  (*   let () = Printf.printf "eval cmds\n" in  *)
   match ins with
   | Statement s -> eval_stat s env mem		   
   | Statements (s,cs) -> (match eval_stat s env mem with
 			  | (_,_,new_mem) -> eval_cmds cs env new_mem)
   | Declaration (d,cs) -> (match eval_dec d env mem with
-			   | (_,new_env,new_mem) -> eval_cmds cs new_env new_mem)
+			   | (_,new_env,new_mem) -> (* let () = Printf.printf "memIntermediaireCMDS : \n %s" (mem_to_string new_mem) in *)
+						    eval_cmds cs new_env new_mem)
 
 
 (* ---------------------------------- prog -------------------------- ---------------------- *)
@@ -203,10 +240,14 @@ and eval_prog prog (env : environment) (mem : memoire) : return =
   | Prog cs -> eval_cmds cs env mem
 
 			    
-			 
-
+										   
 		      
-		      
+let launchInterpreter (prog : pROG) =
+  match eval_prog prog [] [] with
+  | (_,env,mem) -> let () = Printf.printf "environment : \n %s\n" (env_to_string env) in
+		   let () = Printf.printf "memoire : \n %s\n" (mem_to_string mem) in
+		   ()
+		   
 					    
 			  
      

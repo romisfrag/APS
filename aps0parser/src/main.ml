@@ -1,4 +1,5 @@
 open Ast
+open Interpreter
 
 
 let rec printProgram p =
@@ -82,6 +83,7 @@ let _ =
       let lexbuf = Lexing.from_string s in
       let result = Parser_yacc.start Lexer.token lexbuf  in
       let print_prog_res = printProgram result in
+      let () = launchInterpreter result in
       let oc = open_out Sys.argv.(2) in
       Printf.fprintf oc "%s" print_prog_res;
       Printf.printf "%s" print_prog_res

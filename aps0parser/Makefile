@@ -3,7 +3,7 @@ YACC_ML = ocamlyacc
 OCAMLC = ocamlc
 
 
-all: src/lexer.mll src/parser.mly src/main.ml src/ast.ml
+all: src/lexer.mll src/parser.mly src/main.ml src/ast.ml src/interpreter.ml
 	$(OCAMLC) -o ast -c src/ast.ml
 	$(OCAMLC) -o interpreter -c src/interpreter.ml
 	$(LEX_ML) -o lexer.ml src/lexer.mll
@@ -11,7 +11,7 @@ all: src/lexer.mll src/parser.mly src/main.ml src/ast.ml
 	$(OCAMLC) -o parser_yacc.ml -c parser_yacc.mli
 	$(OCAMLC) -o lexer -c lexer.ml
 	$(OCAMLC) -o parser_yacc -c parser_yacc.ml
-	$(OCAMLC) -o exec lexer.cmo parser_yacc.cmo src/main.ml
+	$(OCAMLC) -o exec lexer.cmo parser_yacc.cmo interpreter.cmo ast.cmo src/main.ml
 
 
 clean:

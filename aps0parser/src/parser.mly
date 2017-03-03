@@ -29,7 +29,7 @@ cmds:
 ;
 dec:
 | VAR IDENT ttype        { Ast.Variable ((Ast.Ident $2),$3) }
-| CONST IDENT expr ttype { Ast.Const ((Ast.Ident $2),$3,$4) }
+| CONST IDENT ttype expr { Ast.Const ((Ast.Ident $2),$4,$3) }
 ;
 stat:
 | SET IDENT expr        { Ast.Set ((Ast.Ident $2),$3) }
