@@ -93,5 +93,6 @@ let _ =
 			       (*   Printf.printf "%s xd" (printProgram result); *)
 			       (*   print_newline(); *)
 			       (*   flush stdout *)
-			       (*done *)
+      (*done *)
+      
   else failwith "i need 1 arg : input file 2 arg : output file"

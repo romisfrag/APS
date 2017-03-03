@@ -5,6 +5,7 @@ OCAMLC = ocamlc
 
 all: src/lexer.mll src/parser.mly src/main.ml src/ast.ml
 	$(OCAMLC) -o ast -c src/ast.ml
+	$(OCAMLC) -o interpreter -c src/interpreter.ml
 	$(LEX_ML) -o lexer.ml src/lexer.mll
 	$(YACC_ML) -b parser_yacc src/parser.mly
 	$(OCAMLC) -o parser_yacc.ml -c parser_yacc.mli
