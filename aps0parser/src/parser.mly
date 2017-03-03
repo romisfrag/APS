@@ -20,7 +20,7 @@ prog EOF	       {$1}
 ;
 
 prog:
-LBRACKET cmds RBRACKET { Ast.Prog $2 } 
+  LBRACKET cmds RBRACKET { Ast.Prog $2 }
 ;
 cmds:
 | stat                 { Ast.Statement $1 }

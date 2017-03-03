@@ -71,7 +71,7 @@ typeCmds(G,[var(IDENT,TYPE)|CMDS],void) :- typeCmds([(IDENT,TYPE)|G],CMDS,void).
 
 
 
-typeCmds(G,[const(IDENT,TYPE,EXPR)|CMDS],void) :- typeExpr(G,EXPR,TYPE),
+typeCmds(G,[const(IDENT,TYPE,EXPR)|CMDS],void) :- typeExp(G,EXPR,TYPE),
 					    typeCmds([(IDENT,TYPE)|G],CMDS,void).
 typeCmds(G,[STAT|CMDS],void) :- typeStat(G,STAT,void), typeCmds(G,CMDS,void).
 

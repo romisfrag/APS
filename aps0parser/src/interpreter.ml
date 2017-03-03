@@ -1,4 +1,5 @@
 open Ast
+open Main
 
 exception Error of string
   
@@ -244,12 +245,25 @@ and eval_prog prog (env : environment) (mem : memoire) : return =
 		      
 let launchInterpreter (prog : pROG) =
   match eval_prog prog [] [] with
-  | (_,env,mem) -> let () = Printf.printf "environment : \n %s\n" (env_to_string env) in
-		   let () = Printf.printf "memoire : \n %s\n" (mem_to_string mem) in
+  | (_,env,mem) -> let () = Printf.printf "environment : \n%s\n" (env_to_string env) in
+		   let () = Printf.printf "memoire : \n%s\n" (mem_to_string mem) in
 		   ()
 		   
 					    
-			  
+let _ =
+  if Array.length Sys.argv = 2
+  then
+    (let ic = open_in Sys.argv.(1) in
+     let s = fulfill_string ic "" in
+     try
+       let lexbuf = Lexing.from_string s in
+       let result = Parser_yacc.start Lexer.token lexbuf  in
+       let () = launchInterpreter result in
+       ()
+     with Lexer.Eof ->
+       Printf.printf "mdr")
+  else failwith "i need 1 arg : input file 2 arg : output file"
+      
      
      
   

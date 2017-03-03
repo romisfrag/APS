@@ -1,0 +1,17 @@
+[
+    IF true [
+        CONST c1 bool true;
+        IF c1 [
+            IF (not c1) [
+                VAR never int;
+                SET never 10
+            ] [
+                CONST c1 bool (not c1);
+                IF (or c1 true) [
+                    VAR temp bool;
+                    SET temp false
+                ] []
+            ]
+        ] []
+    ] []
+]

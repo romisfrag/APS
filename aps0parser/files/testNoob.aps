@@ -1,0 +1,1 @@
+[VAR x int;VAR y int; CONST z int 1;SET y 10]

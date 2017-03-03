@@ -1,0 +1,1 @@
+[ SET X (not (and (lt (add (sub 10 x) y) (mul (div y 2) z)) (or (eq 20 w) v))) ]

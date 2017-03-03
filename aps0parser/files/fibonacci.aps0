@@ -1,0 +1,18 @@
+[
+    VAR quantity int;
+    SET quantity 9;
+    VAR iterator int;
+    SET iterator 0;
+    VAR current int;
+    SET current 0;
+    VAR previous1 int;
+    SET previous1 1;
+    VAR previous2 int;
+    SET previous2 0;
+    WHILE (lt iterator quantity) [
+        SET iterator (add iterator 1);
+        SET current (add previous1 previous2);
+        SET previous2 previous1;
+        SET previous1 current
+    ]
+]
