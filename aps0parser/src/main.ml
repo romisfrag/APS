@@ -17,7 +17,7 @@ and printsTAT s =
   match s with
   | Set(i,e) -> "set(" ^ (printiDENT i) ^ "," ^ printeXPR e ^ ")"
   | If(e,(Prog c1),(Prog c2)) -> "if(" ^ printeXPR e ^ ",[" ^ printcMDS c1 ^ "],[" ^ printcMDS c2 ^ "])"
-  | While(e,(Prog c)) -> "while(" ^ printeXPR e ^ "," ^ printcMDS c ^ ")"
+  | While(e,(Prog c)) -> "while(" ^ printeXPR e ^ ",[" ^ printcMDS c ^ "])"
 and printeXPR e =
   match e with
   | True -> "true"
@@ -95,4 +95,4 @@ let _ =
 			       (*   flush stdout *)
       (*done *)
       
-  else failwith "i need 1 arg : input file 2 arg : output file"
+  else failwith "i need 1 arg : input file 2 arg : out lol"

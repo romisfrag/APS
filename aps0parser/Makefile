@@ -12,7 +12,7 @@ all: src/lexer.mll src/parser.mly src/main.ml src/ast.ml src/interpreter.ml
 	$(OCAMLC) -o lexer -c lexer.ml
 	$(OCAMLC) -o parser_yacc -c parser_yacc.ml
 	$(OCAMLC) -o main lexer.cmo parser_yacc.cmo ast.cmo -c src/main.ml
-	$(OCAMLC) -o interpreter lexer.cmo parser_yacc.cmo ast.cmo main.cmo src/interpreter.ml
+	$(OCAMLC) -o interpreter lexer.cmo parser_yacc.cmo ast.cmo src/interpreter.ml
 	$(OCAMLC) -o exec lexer.cmo parser_yacc.cmo ast.cmo src/main.ml
 
 

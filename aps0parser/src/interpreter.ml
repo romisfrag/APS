@@ -1,5 +1,4 @@
 open Ast
-open Main
 
 exception Error of string
   
@@ -240,7 +239,12 @@ and eval_prog prog (env : environment) (mem : memoire) : return =
   match prog with
   | Prog cs -> eval_cmds cs env mem
 
-			    
+let rec fulfill_string ic s: string =
+  try 
+    let line = input_line ic in
+    fulfill_string ic (s ^ line)
+  with e -> let _ = close_in_noerr in
+	    s		    
 										   
 		      
 let launchInterpreter (prog : pROG) =
@@ -251,7 +255,7 @@ let launchInterpreter (prog : pROG) =
 		   
 					    
 let _ =
-  if true(* Array.length Sys.argv = 2 *)
+  if  Array.length Sys.argv = 2 
   then
     (let ic = open_in Sys.argv.(1) in
      let s = fulfill_string ic "" in

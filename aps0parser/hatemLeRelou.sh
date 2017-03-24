@@ -5,7 +5,7 @@
 x=`swipl -s src/regles.pl -g main -- $2`
 echo $x
 if [ "$x" == "true" ];
-then echo 
+then ./interpreter $1
 fi
 
 #x=`swipl -s src/regles.pl -g main -- $1`
