@@ -251,19 +251,19 @@ let launchInterpreter (prog : pROG) =
 		   
 					    
 let _ =
-  if Array.length Sys.argv = 2
+  if true(* Array.length Sys.argv = 2 *)
   then
     (let ic = open_in Sys.argv.(1) in
      let s = fulfill_string ic "" in
      try
        let lexbuf = Lexing.from_string s in
-       let result = Parser_yacc.start Lexer.token lexbuf  in
+       let result = Parser_yacc.start Lexer.token lexbuf  in 
        let () = launchInterpreter result in
        ()
      with Lexer.Eof ->
        Printf.printf "mdr")
-  else failwith "i need 1 arg : input file 2 arg : output file"
-      
+  else failwith "i need 1 arg lol"
+       
      
      
   
