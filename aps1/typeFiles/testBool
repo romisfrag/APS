@@ -1,0 +1,1 @@
+prog([var(x,int),var(y,bool),set(y,true),while(y,[set(y,false)])]).

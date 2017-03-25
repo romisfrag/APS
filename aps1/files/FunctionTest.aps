@@ -1,0 +1,1 @@
+[VAR x bool;CONST x (int -> int)[x1:int](add x1 x1) ;SET x true]

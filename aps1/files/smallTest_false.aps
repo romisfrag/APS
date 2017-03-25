@@ -1,0 +1,2 @@
+[VAR x int; VAR y bool; SET x 10; SET x (add x x);
+IF (eq y 20) [SET y true] [SET y false]]

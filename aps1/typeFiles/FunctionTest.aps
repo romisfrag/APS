@@ -1,0 +1,1 @@
+prog([var(x,bool),const(x,fleche([int],int),lambda([arg(x1,int)],add(x1,x1))),set(x,true)]).

@@ -1,0 +1,8 @@
+[
+VAR x bool;
+CONST le    (int * int -> bool)
+[x:int, y:int](or (lt x y) (eq x y));
+IF (le 0 1)
+[ SET x true; ]
+[ SET x false; ]
+]

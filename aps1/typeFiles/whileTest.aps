@@ -1,0 +1,1 @@
+prog([var(x,int),var(y,int),set(x,0),set(y,10),const(z,int,1),while(lt(x,y),[set(x,add(x,z))])]).

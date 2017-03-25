@@ -1,0 +1,5 @@
+[
+WHILE false [];
+VAR bluh int;
+SET bluh 3
+]

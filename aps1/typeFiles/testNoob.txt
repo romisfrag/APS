@@ -1,0 +1,1 @@
+prog([var(x,int),var(y,int),const(z,int,1),set(y,10)]).

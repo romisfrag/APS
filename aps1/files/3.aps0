@@ -1,0 +1,1 @@
+[ WHILE (not true) [ SET X 3 ] ]

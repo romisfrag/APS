@@ -1,0 +1,1 @@
+[ IF true [ SET ident 3 ] [ SET ident false ] ]

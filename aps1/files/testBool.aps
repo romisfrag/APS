@@ -1,0 +1,1 @@
+[VAR x int ; VAR y bool; SET y true ; WHILE y [SET y false]]
